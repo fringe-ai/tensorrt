@@ -97,7 +97,7 @@ class BenchmarkRunner(BaseBenchmarkRunner):
             image_height = coco_img['height']
 
             for j in range(int(predictions['num_detections'][i])):
-                bbox = predictions['boxes'][i][j]
+                bbox = predictions['detection_boxes'][i][j]
                 y1, x1, y2, x2 = list(bbox)
                 bbox_coco_fmt = [
                     x1 * image_width,  # x0
@@ -107,9 +107,9 @@ class BenchmarkRunner(BaseBenchmarkRunner):
                 ]
                 coco_detection = {
                     'image_id': image_id,
-                    'category_id': int(predictions['classes'][i][j]),
+                    'category_id': int(predictions['detection_classes'][i][j]),
                     'bbox': [int(coord) for coord in bbox_coco_fmt],
-                    'score': float(predictions['scores'][i][j])
+                    'score': float(predictions['detection_scores'][i][j])
                 }
                 coco_detections.append(coco_detection)
 
